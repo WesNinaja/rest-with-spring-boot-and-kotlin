@@ -1,5 +1,7 @@
-package br.com.erudio.exception
+package br.com.erudio.exception.handler
 
+import br.com.erudio.exception.ExceptionResponse
+import br.com.erudio.exception.ResourceNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -14,8 +16,8 @@ import java.util.*
 class CustomizedResponseEntityExceptionHandler : ResponseEntityExceptionHandler(){
 
     @ExceptionHandler(Exception::class)
-    fun handleAllExceptions(ex : Exception, request: WebRequest) :
-            ResponseEntity<ExceptionResponse>{
+    fun handleResourceNotFoundException(ex : Exception, request: WebRequest) :
+            ResponseEntity<ExceptionResponse> {
         val exceptionResponse = ExceptionResponse(
                 Date(),
                 ex.message,
@@ -25,15 +27,15 @@ class CustomizedResponseEntityExceptionHandler : ResponseEntityExceptionHandler(
         return ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
-    @ExceptionHandler(UnsuportedMathOperationException::class)
+    @ExceptionHandler(ResourceNotFoundException::class)
     fun handleBadRequestExcetions(ex : Exception, request: WebRequest) :
-            ResponseEntity<ExceptionResponse>{
+            ResponseEntity<ExceptionResponse> {
         val exceptionResponse = ExceptionResponse(
                 Date(),
                 ex.message,
                 request.getDescription(false)
         )
 
-        return ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST)
+        return ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND)
     }
 }
