@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 import java.util.concurrent.atomic.AtomicLong
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 class PersonController {
 
     val counter: AtomicLong = AtomicLong()
