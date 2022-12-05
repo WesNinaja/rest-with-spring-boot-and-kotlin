@@ -1,6 +1,5 @@
 package br.com.erudio.data.vo.v1
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import jakarta.persistence.*
@@ -14,7 +13,6 @@ data class PersonVO(
         @field:JsonProperty("last_name")
         var lastName: String = "",
         var address: String = "",
-        @field:JsonIgnore
         var gender: String = ""
 
 )
